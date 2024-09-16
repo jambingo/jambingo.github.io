@@ -12,39 +12,39 @@
         <div class="center">
             <table>  
                 <tr>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
+                    <td><button id="button0" class="squere"><p></p></button></td>
+                    <td><button id="button1" class="squere"><p></p></button></td>
+                    <td><button id="button2" class="squere"><p></p></button></td>
+                    <td><button id="button3" class="squere"><p></p></button></td>
+                    <td><button id="button4" class="squere"><p></p></button></td>
                 </tr>       
                 <tr>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
+                    <td><button id="button5" class="squere"><p></p></button></td>
+                    <td><button id="button6" class="squere"><p></p></button></td>
+                    <td><button id="button7" class="squere"><p></p></button></td>
+                    <td><button id="button8" class="squere"><p></p></button></td>
+                    <td><button id="button9" class="squere"><p></p></button></td>
                 </tr>
                 <tr>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
+                    <td><button id="button10" class="squere"><p></p></button></td>
+                    <td><button id="button11" class="squere"><p></p></button></td>
+                    <td><button id="button12" class="squere"><p></p></button></td>
+                    <td><button id="button13" class="squere"><p></p></button></td>
+                    <td><button id="button14" class="squere"><p></p></button></td>
                 </tr>
                 <tr>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
+                    <td><button id="button15" class="squere"><p></p></button></td>
+                    <td><button id="button16" class="squere"><p></p></button></td>
+                    <td><button id="button17" class="squere"><p></p></button></td>
+                    <td><button id="button18" class="squere"><p></p></button></td>
+                    <td><button id="button19" class="squere"><p></p></button></td>
                 </tr>
                 <tr>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
-                    <td><p></p></td>
+                    <td><button id="button20" class="squere"><p></p></button></td>
+                    <td><button id="button21" class="squere"><p></p></button></td>
+                    <td><button id="button22" class="squere"><p></p></button></td>
+                    <td><button id="button23" class="squere"><p></p></button></td>
+                    <td><button id="button24" class="squere"><p></p></button></td>
                 </tr>
             </table>
         </div>
@@ -92,6 +92,13 @@
             ];
             function generate() {
                 saved_list = []
+                marked = [
+                    true,true,true,true,true,
+                    true,true,true,true,true,
+                    true,true,false,true,true,
+                    true,true,true,true,true,
+                    true,true,true,true,true
+                ]
                 for(let i = 0; i < 25; i++) {
                     if(i != 12) {
                         x = true
@@ -114,8 +121,25 @@
                     }
                     document.getElementsByTagName("p")[i].textContent = val;
                 }
+                localStorage.setItem('marked', marked.map(bool => bool ? '1' : '0').join(''));
+                for(let i = 0; i < 25; i++) {
+                    mark(i)
+                }
                 localStorage.setItem('board',JSON.stringify(saved_list))
             }
+            function mark(index) {
+                marked[index] = !marked[index]
+                if(marked[index])
+                {
+                    document.getElementById("button" + String(index)).style.backgroundColor = "#c7313198"
+                }
+                else
+                {
+                    document.getElementById("button" + String(index)).style.backgroundColor = "#00000000"
+                }
+                localStorage.setItem('marked', marked.map(bool => bool ? '1' : '0').join(''));
+            }
+
             function read() {
                 for(let i = 0; i < 25; i++) {
                     if(i < 12) {
@@ -130,8 +154,30 @@
                     {
                         val = "Free Space";
                     }
+                    if(marked[i])
+                    {
+                    document.getElementById("button" + String(i)).style.backgroundColor = "#c7313198"
+                    }
+                    else
+                    {
+                    document.getElementById("button" + String(i)).style.backgroundColor = "#00000000"
+                    }
                     document.getElementsByTagName("p")[i].textContent = val;
                 }
+            }
+            if(localStorage.getItem('marked'))
+            {
+                marked = localStorage.getItem('marked').split('').map(bit => bit === '1');
+            }
+            else
+            {
+                marked = [
+            false,false,false,false,false,
+            false,false,false,false,false,
+            false,false,true,false,false,
+            false,false,false,false,false,
+            false,false,false,false,false
+            ]
             }
             if(localStorage.getItem('board'))
             {
@@ -143,6 +189,13 @@
                 saved_list = []
                 generate()
             }
+
+            for(let i = 0; i < 25; i++) {
+                document.getElementById("button" + String(i)).addEventListener("click", function(){
+                    mark(i);
+                }, false);
+            }
+            
             document.getElementById("gen").addEventListener("click", generate);
         </script>
     </body>
