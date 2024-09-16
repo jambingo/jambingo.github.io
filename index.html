@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Bingo</title>
+        <meta name="author" content="Mentel">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="center">
+        <h1>Scuffed Game Jam Bingo Board Generator</h1>
+        </div>
+        <div class="center">
+            <table>  
+                <tr>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                </tr>       
+                <tr>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                </tr>
+                <tr>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                </tr>
+                <tr>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                </tr>
+                <tr>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                    <td><p></p></td>
+                </tr>
+            </table>
+        </div>
+        <div class="center">
+            <button id="gen">Generate a New Board</button>
+        </div>
+        <script>
+            mainList = [
+                "Placeholder1",
+                "Placeholder2",
+                "Placeholder3",
+                "Placeholder4",
+                "Placeholder5",
+                "Placeholder6",
+                "Placeholder7",
+                "Placeholder8",
+                "Placeholder9",
+                "Placeholder10",
+                "Placeholder11",
+                "Placeholder12",
+                "Placeholder13",
+                "Placeholder14",
+                "Placeholder15",
+                "Placeholder16",
+                "Placeholder17",
+                "Placeholder18",
+                "Placeholder19",
+                "Placeholder20",
+                "Placeholder21",
+                "Placeholder22",
+                "Placeholder23",
+                "Placeholder24",
+                "Placeholder25",
+                "Placeholder26",
+                "Placeholder27",
+                "Placeholder28",
+                "Placeholder29",
+                "Placeholder30",
+                "Placeholder31",
+                "Placeholder32",
+                "Placeholder33"
+
+            ];
+            function generate() {
+                saved_list = []
+                for(let i = 0; i < 25; i++) {
+                    if(i != 12) {
+                        x = true
+                        while(x)
+                            {
+                            rand = Math.floor(Math.random() * mainList.length);
+                            x = false
+                            for (let i = 0; i < saved_list.length; i++) {
+                                if (saved_list.includes(rand)) {
+                                    x = true
+                                }
+                            }
+                            }
+                        val = mainList[rand];
+                        saved_list.push(rand)
+                    }
+                    else
+                    {
+                        val = "Free Space";
+                    }
+                    document.getElementsByTagName("p")[i].textContent = val;
+                }
+                localStorage.setItem('board',JSON.stringify(saved_list))
+            }
+            function read() {
+                for(let i = 0; i < 25; i++) {
+                    if(i < 12) {
+                        console.log(saved_list[i])
+                        val = mainList[saved_list[i]];
+                    }
+                    else if(i > 12)
+                    {
+                        val = mainList[saved_list[i-1]];
+                    }
+                    else
+                    {
+                        val = "Free Space";
+                    }
+                    document.getElementsByTagName("p")[i].textContent = val;
+                }
+            }
+            if(localStorage.getItem('board'))
+            {
+                saved_list = JSON.parse(localStorage.getItem('board'));
+                read()
+            }
+            else
+            {
+                saved_list = []
+                generate()
+            }
+            document.getElementById("gen").addEventListener("click", generate);
+        </script>
+    </body>
+</html>
