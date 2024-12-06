@@ -4,6 +4,7 @@
         <title>Bingo</title>
         <meta name="author" content="Mentel">
         <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
@@ -55,6 +56,9 @@
         <div class="center">
             <button id="gen">Generate a New Board</button>
         </div>
+        <div id="credits">
+            <p>Made by Mentel<br> based on Redline's<br> static version</p>
+        </div>
         <script>
             mainList = [
                 "Engine wars",
@@ -96,7 +100,7 @@
                 "Somebody misses the deadline by one minute",
                 "Programmer art in final build",
                 "Someone starts their game in the last few hours",
-                "Someone uploads an engine tutorial project regardless of the theme"
+                "Someone uploads an engine tutorial project"
             ];
             function generate() {
                 saved_list = []
@@ -151,7 +155,6 @@
             function read() {
                 for(let i = 0; i < 25; i++) {
                     if(i < 12) {
-                        console.log(saved_list[i])
                         val = mainList[saved_list[i]];
                     }
                     else if(i > 12)
