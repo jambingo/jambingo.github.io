@@ -60,6 +60,7 @@
             <p>Made by Mentel<br> based on Redline's<br> static version</p>
         </div>
         <script>
+            let randomRot = [-5,5]
             mainList = [
                 "Engine wars",
                 "Someone asks for the theme a day after reveal",
@@ -100,7 +101,19 @@
                 "Somebody misses the deadline by one minute",
                 "Programmer art in final build",
                 "Someone starts making their game in the last few hours",
-                "Someone uploads a game unrelated to the theme."
+                "Someone uploads a game unrelated to the theme",
+                "People one up each other on terrible sleep schedule",
+                "Game submitted to multiple jams",
+                "Files lost without git",
+                "A game with bearly enough votes wins",
+                "Somebody makes a game with keybind settings",
+                "Someone makes a game with custom animated splash art",
+                "Someone wants to upload their game after deadline",
+                "Someone uses the jam logo somewhere in their game",
+                "All the mixels",
+                "Unreal Engine game that lags like hell",
+                "A game has handdrawn assets"
+
             ];
             function generate() {
                 saved_list = []
@@ -132,6 +145,7 @@
                         val = "Free Space";
                     }
                     document.getElementsByTagName("p")[i].textContent = val;
+                    document.getElementsByTagName("p")[i].style.transform ="rotate("+String(Math.random() * (randomRot[1]-randomRot[0]) + randomRot[0])+"deg)"
                 }
                 localStorage.setItem('marked', marked.map(bool => bool ? '1' : '0').join(''));
                 for(let i = 0; i < 25; i++) {
@@ -174,6 +188,7 @@
                     document.getElementById("button" + String(i)).style.backgroundColor = "#00000000"
                     }
                     document.getElementsByTagName("p")[i].textContent = val;
+                    document.getElementsByTagName("p")[i].style.transform ="rotate("+String(Math.random() * (randomRot[1]-randomRot[0]) + randomRot[0])+"deg)"
                 }
             }
             if(localStorage.getItem('marked'))
